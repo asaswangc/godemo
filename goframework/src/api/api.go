@@ -2,9 +2,8 @@ package api
 
 import (
 	"fmt"
-	"goframework/src/middleware"
-
 	"github.com/gin-gonic/gin"
+	"goframework/src/framework/middleware"
 )
 
 type RegisterApi interface {

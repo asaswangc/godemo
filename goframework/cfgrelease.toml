@@ -1,0 +1,41 @@
+[mysql]
+db_name = "cheer_cmdb"
+host = "192.168.31.31"
+port = "3306"
+user_name = "root"
+password = "cheer123"
+max_life_time = 60
+max_idle_time = 30
+max_idle_conns = 10
+max_open_conns = 100
+
+[mysql.logger]
+log_path = "log/mysql.log"
+max_age = 15
+max_size = 100
+compress = true
+max_backups = 30
+
+[redis]
+host = [
+    "192.168.31.25:7000",
+    "192.168.31.25:7001",
+    "192.168.31.25:7002",
+    "192.168.31.25:7003",
+    "192.168.31.25:7004",
+    "192.168.31.25:7005"
+]
+password = "tdfdsfnkinki"
+pool_size = 10
+pool_timeout = 3
+
+[zap_log]
+err_log = "log/err.log"
+warn_log = "log/warn.log"
+info_log = "log/info.log"
+max_size = 100
+max_age = 15
+max_backups = 30
+compress = true
+json_encoder = true
+
