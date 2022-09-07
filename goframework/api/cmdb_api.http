@@ -1,0 +1,86 @@
+### 查询审计
+POST {{host}}/cmdb/web/v1/get/audit/list
+Content-Type: application/json; charset=utf-8
+
+{}
+
+### 查询资源类别
+POST {{host}}/cmdb/web/v1/get/class/list
+Content-Type: application/json; charset=utf-8
+
+{}
+
+### 查询资源模型
+POST {{host}}/cmdb/web/v1/get/model/list
+Content-Type: application/json; charset=utf-8
+
+{}
+
+### 查询模型字段
+POST {{host}}/cmdb/web/v1/get/field/list
+Content-Type: application/json; charset=utf-8
+
+{
+  "model_id": 1001
+}
+
+### 查询字段验证器
+POST {{host}}/cmdb/web/v1/get/check/list
+Content-Type: application/json; charset=utf-8
+
+{}
+
+### 创建资源类别
+POST {{host}}/cmdb/web/v1/create/class
+Content-Type: application/json; charset=utf-8
+
+{
+  "is_enabled": "true",
+  "class_name": "基础硬件4",
+  "comments": "基础硬件分类"
+}
+
+### 创建资源模型
+POST {{host}}/cmdb/web/v1/create/model
+Content-Type: application/json; charset=utf-8
+
+{
+  "class_id": 1001,
+  "is_enabled": "true",
+  "comments": "基础硬件模型",
+  "model_name": "base_model",
+  "model_name_zh": "基础硬件模型"
+}
+
+### 创建资源模型字段
+POST {{host}}/cmdb/web/v1/create/field
+Content-Type: application/json; charset=utf-8
+
+{
+  "model_id": 1001,
+  "model_name": "base_model",
+  "fields": [
+    {
+      "id": 1012,
+      "field_name": "name1",
+      "field_name_zh": "名称",
+      "field_type": "varchar",
+      "field_length": 20,
+      "allow_not_null": "true",
+      "comments": "名称",
+      "operation_type": "create"
+    }
+  ]
+}
+
+### 创建字段验证器
+POST {{host}}/cmdb/web/v1/create/check
+Content-Type: application/json; charset=utf-8
+
+{
+  "is_enabled": "true",
+  "check_name": "user_name",
+  "check_type": "regular",
+  "check_body": "asdasdasdas",
+  "comments": "测试验证器"
+}

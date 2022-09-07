@@ -2,7 +2,7 @@ package logger
 
 import (
 	"fmt"
-	"goframework/src/framework/utils/config"
+	"goframework/src/framework/utils/cfg"
 	"goframework/variable"
 	"log"
 	"time"
@@ -31,34 +31,34 @@ func Init(hooks ...func(zapcore.Entry) error) {
 	// 设置日志内容格式，以及日志输出格式。默认为人类可读格式；若配置了json，则输出为json格式
 	encoderConf := genEncoderConf()
 	encoder := zapcore.NewConsoleEncoder(encoderConf)
-	if config.Toml.ZapLog.JsonEncoder {
+	if cfg.T.ZapLog.JsonEncoder {
 		encoder = zapcore.NewJSONEncoder(encoderConf)
 	}
 
 	// 错误日志
 	errWriter := &lumberjack.Logger{
-		Filename:   config.Toml.ZapLog.ErrLog,
-		MaxSize:    config.Toml.ZapLog.Maxsize,
-		MaxAge:     config.Toml.ZapLog.MaxAge,
-		MaxBackups: config.Toml.ZapLog.MaxBackups,
-		Compress:   config.Toml.ZapLog.Compress,
+		Filename:   cfg.T.ZapLog.ErrLog,
+		MaxSize:    cfg.T.ZapLog.Maxsize,
+		MaxAge:     cfg.T.ZapLog.MaxAge,
+		MaxBackups: cfg.T.ZapLog.MaxBackups,
+		Compress:   cfg.T.ZapLog.Compress,
 	}
 
 	// 警告日志
 	warnWriter := &lumberjack.Logger{
-		Filename:   config.Toml.ZapLog.WarnLog,
-		MaxSize:    config.Toml.ZapLog.Maxsize,
-		MaxAge:     config.Toml.ZapLog.MaxAge,
-		MaxBackups: config.Toml.ZapLog.MaxBackups,
-		Compress:   config.Toml.ZapLog.Compress,
+		Filename:   cfg.T.ZapLog.WarnLog,
+		MaxSize:    cfg.T.ZapLog.Maxsize,
+		MaxAge:     cfg.T.ZapLog.MaxAge,
+		MaxBackups: cfg.T.ZapLog.MaxBackups,
+		Compress:   cfg.T.ZapLog.Compress,
 	}
 	// 普通日志
 	infoWriter := &lumberjack.Logger{
-		Filename:   config.Toml.ZapLog.InfoLog,
-		MaxSize:    config.Toml.ZapLog.Maxsize,
-		MaxAge:     config.Toml.ZapLog.MaxAge,
-		MaxBackups: config.Toml.ZapLog.MaxBackups,
-		Compress:   config.Toml.ZapLog.Compress,
+		Filename:   cfg.T.ZapLog.InfoLog,
+		MaxSize:    cfg.T.ZapLog.Maxsize,
+		MaxAge:     cfg.T.ZapLog.MaxAge,
+		MaxBackups: cfg.T.ZapLog.MaxBackups,
+		Compress:   cfg.T.ZapLog.Compress,
 	}
 
 	// 日志级别配置，不能直接写zap.InfoLevel等，否则在写error级别的log时，info、warn也会写一份

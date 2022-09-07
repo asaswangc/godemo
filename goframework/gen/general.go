@@ -3,8 +3,8 @@ package gen
 import (
 	"flag"
 	"github.com/gin-gonic/gin"
-	"goframework/src/framework/data/mysql"
-	"goframework/src/framework/utils/config"
+	"goframework/src/framework/data/mysql_cli"
+	"goframework/src/framework/utils/cfg"
 	"goframework/src/framework/utils/logger"
 	"goframework/src/framework/validators"
 	"goframework/variable"
@@ -40,18 +40,18 @@ func Init() {
 	// 依赖加载
 	{
 		// 加载配置文件
-		config.Init()
+		cfg.Init()
 
 		// 加载日志
 		logger.Init()
 
-		// 加载验证器
-		validators.Init()
-
-		// 加载Mysql数据库
-		mysql.Init()
-
 		// 加载Redis数据库
 		//redis.Init()
+
+		// 加载Mysql数据库
+		mysql_cli.Init()
+
+		// 加载验证器
+		validators.Init("zh")
 	}
 }

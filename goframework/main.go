@@ -21,7 +21,7 @@ func main() {
 
 	// 用户模块路由
 	route.LoadApi(cmdb.NewWebApi(route))
-	route.LoadApi(cmdb.NewServiceApi(route))
+	//route.LoadApi(cmdb.NewServiceApi(route))
 
 	err := route.Engine.Run()
 	if err != nil {

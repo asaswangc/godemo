@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS `admin_cmdb_field`
     `field_type`     VARCHAR(10)  NOT NULL COMMENT '字段类型',
     `field_length`   int(11)      NOT NULL COMMENT '字段长度',
     `allow_not_null` VARCHAR(10)  NOT NULL DEFAULT 'true' COMMENT '允许为空',
-    `verify_id`      INT(11)      NOT NULL DEFAULT 0 COMMENT '验证器id',
+    `check_id`      INT(11)      NOT NULL DEFAULT 0 COMMENT '验证器id',
     `model_id`       INT(11)      NOT NULL COMMENT '资源模型表的id',
     `comments`       VARCHAR(200) NOT NULL DEFAULT '' COMMENT '备注',
     `created_at`     TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
@@ -60,20 +60,20 @@ CREATE TABLE IF NOT EXISTS `admin_cmdb_field`
   COLLATE = utf8mb4_unicode_ci;
 
 -- 创建资源模型字段验证器表
-DROP TABLE IF EXISTS `admin_cmdb_verify`;
-CREATE TABLE IF NOT EXISTS `admin_cmdb_verify`
+DROP TABLE IF EXISTS `admin_cmdb_check`;
+CREATE TABLE IF NOT EXISTS `admin_cmdb_check`
 (
     `id`          INT(11)      NOT NULL AUTO_INCREMENT COMMENT '自增id',
     `tenant_id`   INT(11)      NOT NULL COMMENT '租户id',
     `is_enabled`  VARCHAR(10)  NOT NULL DEFAULT 'true' COMMENT '是否启用',
-    `verify_name` VARCHAR(50)  NOT NULL COMMENT '验证器名称',
-    `verify_type` VARCHAR(50)  NOT NULL COMMENT '验证器类型',
-    `verify_body` VARCHAR(100) NOT NULL COMMENT '验证器内容',
+    `check_name` VARCHAR(50)  NOT NULL COMMENT '验证器名称',
+    `check_type` VARCHAR(50)  NOT NULL COMMENT '验证器类型',
+    `check_body` VARCHAR(100) NOT NULL COMMENT '验证器内容',
     `comments`    VARCHAR(200) NOT NULL DEFAULT '' COMMENT '备注',
     `created_at`  TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `updated_at`  TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最后更新时间',
     PRIMARY KEY (`id`),
-    UNIQUE KEY `idx_unique` (`verify_name`) -- 所有验证器名称均不可重复
+    UNIQUE KEY `idx_unique` (`check_name`) -- 所有验证器名称均不可重复
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 1001
   DEFAULT CHARSET = utf8mb4
@@ -99,7 +99,7 @@ CREATE TABLE IF NOT EXISTS `admin_cmdb_audit`
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_unicode_ci;
 
--- 表视图展示【定制列】
+-- 表视图展示[定制列]
 DROP TABLE IF EXISTS `admin_user_field`;
 CREATE TABLE IF NOT EXISTS `admin_user_field`
 (

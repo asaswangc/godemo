@@ -14,7 +14,7 @@ var (
 const (
 	Bool    = "bool"
 	Varchar = "varchar"
-	Nummber = "nummber"
+	Number  = "number"
 )
 
 // DefaultFunc 函数原形
@@ -26,28 +26,21 @@ type Type struct {
 	Default DefaultFunc
 }
 
-func (t Type) VfMax(max int) int {
-	if max >= t.Max {
-		return t.Max
-	}
-	return max
-}
-
 // ConstType 数值类型
 var ConstType = map[string]*Type{
-	Bool: &Type{
+	Bool: {
 		Max:     5,
 		Type:    "char",
 		Default: func(args interface{}) string { return fmt.Sprintf("default '%v'", args) },
 	},
 
-	Nummber: &Type{
+	Number: {
 		Max:     11,
 		Type:    "integer",
 		Default: func(args interface{}) string { return fmt.Sprintf("default '%v'", args) },
 	},
 
-	Varchar: &Type{
+	Varchar: {
 		Max:     65533,
 		Type:    "varchar",
 		Default: func(args interface{}) string { return fmt.Sprintf("default '%v'", args) },

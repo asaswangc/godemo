@@ -1,12 +1,17 @@
 package result
 
-// ProcessFunc 自定义Process函数原型
-type ProcessFunc func(err ...*ConstErr)
-
 // ConstErr 自定义Error
 type ConstErr struct {
-	ErrStr  string // Error消息
-	ErrCode int    // Error状态码
+	ErrStr     string // Error消息
+	ErrCode    int    // Error状态码
+	ErrComment string // Error详细描述
+}
+
+func NewConstErr(errStr string, errCode int, errComment ...string) *ConstErr {
+	if len(errComment) != 0 {
+		return &ConstErr{ErrStr: errStr, ErrCode: errCode, ErrComment: errComment[0]}
+	}
+	return &ConstErr{ErrStr: errStr, ErrCode: errCode, ErrComment: ""}
 }
 
 // Error 实现了原生的Error接口,可用于获取Error信息
@@ -20,11 +25,7 @@ func (ce *ConstErr) GetCode() int {
 }
 
 // Process 当Result捕获到Error时,可使用Result的Process方法来调用本方法,达到使用自定义处理Error的需求
-func (ce *ConstErr) Process(pfn ...ProcessFunc) {
-	if len(pfn) > 0 {
-		pfn[0](ce)
-		return
-	}
+func (ce *ConstErr) Process() {
 	panic(ce)
 }
 
@@ -58,10 +59,12 @@ func (er *ErrorResult) Unwrap() interface{} {
 }
 
 // Process 如果Result捕获到了Err,就是用自定义的Err来处理
-func (er *ErrorResult) Process(pfn ...ProcessFunc) ProcessFunc {
-	return func(ce ...*ConstErr) {
-		if er.err != nil {
-			ce[0].Process(pfn...)
-		}
+func (er *ErrorResult) Process(ef ...func(err error, data ...interface{})) {
+	if len(ef) != 0 {
+		ef[0](er.err, er.data)
+		return
+	}
+	if er.err != nil {
+		panic(er.err)
 	}
 }

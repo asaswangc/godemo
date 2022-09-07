@@ -16,13 +16,10 @@ type PageResult struct {
 type JsonResult struct {
 	Rows    interface{} `json:"rows"`
 	Code    int         `json:"code"`
-	Message string      `json:"message"`
+	Message interface{} `json:"message"`
 }
 
-func NewJsonResult(code int, message string, rows interface{}) *JsonResult {
-	if rows == nil {
-		rows = []struct{}{}
-	}
+func NewJsonResult(code int, message interface{}, rows interface{}) *JsonResult {
 	return &JsonResult{
 		Code:    code,
 		Rows:    rows,
@@ -30,10 +27,7 @@ func NewJsonResult(code int, message string, rows interface{}) *JsonResult {
 	}
 }
 
-func NewPageResult(code int, total int64, rows interface{}, pageNum int, pageSize int) *PageResult {
-	if rows == nil {
-		rows = []struct{}{}
-	}
+func NewPageResult(code int, total int64, pageNum int, pageSize int, rows interface{}) *PageResult {
 	return &PageResult{
 		Code:     code,
 		Rows:     rows,

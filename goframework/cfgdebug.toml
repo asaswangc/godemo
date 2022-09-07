@@ -1,7 +1,5 @@
 [mysql]
-db_name = "ops_monitor_uat"
-#port = "13306"
-#host = "43.143.10.30"
+db_name = "cheer_cmdb_v2"
 port = "3306"
 host = "192.168.31.31"
 user_name = "root"
@@ -40,4 +38,8 @@ max_age = 15
 max_backups = 30
 compress = true
 json_encoder = true
+
+[key_path]
+public = "public_key.pem"
+private = "private_key.pem"
 
